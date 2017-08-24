@@ -6,6 +6,8 @@ Web Development Home Task
 
 ### `npm install`
 
+Installs all dependencies.
+
 ### `npm start`
 
 Runs the app in development mode.<br>
