@@ -7,7 +7,7 @@ class ExchangeForm extends Component {
     super();
 
     this.state = {
-      currentTransfer: {
+      transfer: {
         from: {
           currency: "GBP",
           exchangeRate: 0,
