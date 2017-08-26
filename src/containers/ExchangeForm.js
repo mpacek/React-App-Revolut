@@ -10,13 +10,17 @@ class ExchangeForm extends Component {
       transfer: {
         from: {
           currency: "GBP",
+          symbol: "£",
           exchangeRate: 0,
-          amount: 0
+          amount: 0,
+          inWallet: 100
         },
         to: {
           currency: "EUR",
+          symbol: "€",
           exchangeRate: 0,
-          amount: 0
+          amount: 0,
+          inWallet: 200
         }
       },
       wallet: [
@@ -43,11 +47,11 @@ class ExchangeForm extends Component {
     return (
       <div className="ExchangeForm">
         <div className="lander">
-          <h1>Revolut</h1>
-          <p>Web Development Home Task</p>
-          <ul>
-            <CurrencyItem />
-          </ul>
+          <h1>Exchange: </h1>
+          <div>
+            <CurrencyItem transfer={this.state.transfer.from} />
+            <CurrencyItem transfer={this.state.transfer.to} />
+          </div>
         </div>
       </div>
     );
