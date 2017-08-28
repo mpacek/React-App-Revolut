@@ -21,11 +21,29 @@ const wallet = [
 ];
 
 class Exchange extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      exchange: {
+        from: {
+          currency: "GBP",
+          amount: 0
+        },
+        to: {
+          currency: "EUR",
+          amount: 0
+        },
+        exchangeRate: 0.65
+      },
+    };
+  }
+
   render() {
     return (
       <div className="Exchange">
         <h1 className="Exchange__title u-visibilityhidden">Exchange: </h1>
-        <ExchangeForm wallet={wallet} />
+        <ExchangeForm wallet={wallet} exchangeDetails={this.state.exchange} />
       </div>
     );
   }

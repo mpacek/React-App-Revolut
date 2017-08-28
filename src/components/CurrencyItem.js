@@ -5,25 +5,36 @@ export default class CurrencyItem extends React.Component {
   componentWillMount() {
     this.id = "CI" + _.uniqueId()
   }
-  
+
   render() {
+    const { exchangeDetails } = this.props;
+    const exchangeRate = this._displayExchangeRate();
+
     return (
       <fieldset className="CurrencyItem">
         <div className="CurrencyItem__operation">
-          <label htmlFor={this.id} className="CurrrencyItem__cuurency">
-            {this.props.transfer.currency}
+          <label htmlFor={this.id} className="CurrrencyItem__currency">
+            {this.props.currency}
           </label>
-          <input id={this.id} className="CurrrencyItem__amount" value={this.props.transfer.amount} />
+          <input id={this.id} className="CurrrencyItem__amount" value={exchangeDetails.amount} />
         </div>
         <div className="CurrencyItem__info">
           <p className="CurrrencyItem__amount">
-            You have: {this.props.transfer.symbol}{this.props.transfer.amountInWallet}
+            You have: {this.props.symbol}{this.props.amount}
           </p>
-          <p className="CurrrencyItem__amount">
-            1{this.props.transfer.symbol} = {this.props.transfer.exchangeRate}
-          </p>
+          {exchangeRate}
         </div>
       </fieldset>
     );
   }
+
+  _displayExchangeRate() {
+    if (this.props.exchangeRate) {
+      return <p className="CurrrencyItem__rate">1{this.props.symbol} = {this.props.exchangeRate}</p>;
+    }
+  }
+}
+
+CurrencyItem.propTypes = {
+  exchangeDetails: React.PropTypes.string.isRequired,
 }
