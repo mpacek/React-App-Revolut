@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 export default class CurrencyItem extends React.Component {
@@ -36,5 +37,6 @@ export default class CurrencyItem extends React.Component {
 }
 
 CurrencyItem.propTypes = {
-  exchangeDetails: React.PropTypes.string.isRequired,
+  exchangeDetails: PropTypes.any.isRequired,
+  exchangeRate: PropTypes.node
 }

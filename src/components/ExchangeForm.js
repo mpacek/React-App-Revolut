@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CurrencyItem from '../components/CurrencyItem';
 import './ExchangeForm.css';
 
@@ -42,6 +43,6 @@ export default class ExchangeForm extends React.Component {
 }
 
 CurrencyItem.propTypes = {
-  wallet: React.PropTypes.string.isRequired,
-  exchangeDetails: React.PropTypes.string.isRequired
+  wallet: PropTypes.node,
+  exchangeDetails: PropTypes.any.isRequired
 }
