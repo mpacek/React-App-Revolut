@@ -5,24 +5,6 @@ import './Exchange.css';
 
 const WALLET_API_URL = 'api/wallet.json';
 
-const wallet = [
-  {
-    currency: "GBP",
-    symbol: "£",
-    amount: "100"
-  },
-  {
-    currency: "USD",
-    symbol: "$",
-    amount: "50"
-  },
-  {
-    currency: "EUR",
-    symbol: "€",
-    amount: "200"
-  }
-];
-
 class Exchange extends Component {
   constructor() {
     super();
