@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import './CurrencyItem.css';
 
 export default class CurrencyItem extends React.Component {
   componentWillMount() {
@@ -12,7 +13,7 @@ export default class CurrencyItem extends React.Component {
     const exchangeRate = this._displayExchangeRate();
 
     return (
-      <fieldset className="CurrencyItem">
+      <fieldset className={"CurrencyItem " + (exchangeDetails.currency == this.props.currency ? 'CurrencyItem__active' : '')}>
         <div className="CurrencyItem__operation">
           <label htmlFor={this.id} className="CurrrencyItem__currency">
             {this.props.currency}
