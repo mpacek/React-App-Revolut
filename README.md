@@ -11,7 +11,7 @@ Installs all dependencies.
 ### `npm start`
 
 Runs the app in development mode.<br>
-Open [http://localhost:3000](http://localhost:3001) to view it in the browser.
+Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 
 The page will reload if you make edits.<br>
 You will see the build errors and lint warnings in the console.
