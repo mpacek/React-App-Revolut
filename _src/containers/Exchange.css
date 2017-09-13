@@ -1,0 +1,10 @@
+.Exchange {
+  text-align: center;
+}
+.Exchange h1 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}
+.Exchange p {
+  color: #999;
+}

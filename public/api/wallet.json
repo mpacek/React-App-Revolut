@@ -1,17 +1,19 @@
-[
-  {
-    "currency": "GBP",
-    "symbol": "£",
-    "amount": "100"
-  },
-  {
-    "currency": "USD",
-    "symbol": "$",
-    "amount": "50"
-  },
-  {
-    "currency": "EUR",
-    "symbol": "€",
-    "amount": "200"
-  }
-]
+{
+  "wallet": [
+    {
+      "currency": "GBP",
+      "symbol": "£",
+      "amount": "100"
+    },
+    {
+      "currency": "USD",
+      "symbol": "$",
+      "amount": "50"
+    },
+    {
+      "currency": "EUR",
+      "symbol": "€",
+      "amount": "200"
+    }
+  ]
+}
