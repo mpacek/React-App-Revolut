@@ -23,11 +23,13 @@ class ExchangeForm extends Component {
   }
 
   renderWallet(currency) {
-    const name = currency.symbol;
+    const symbol = currency.symbol;
+    const name = currency.currency_name;
+    const amount = currency.amount;
 
     return (
       <div key={_.uniqueId()}>
-        {name}
+        {name}{amount}{symbol}
       </div>
     )
   }
