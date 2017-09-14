@@ -40,7 +40,7 @@ class ExchangeForm extends Component {
 
     return (
       <div>
-        <Carousel onChange={(index, element) => {console.log(index + element) }} showThumbs={false} showStatus={false} showArrows={false}>
+        <Carousel selectedItem={this.state.currentSlide} onChange={(index, element) => {console.log(index + element) }} showThumbs={false} showStatus={false} showArrows={false}>
           {this.props.wallet.map(this.renderWallet)}
         </Carousel>
       </div>
