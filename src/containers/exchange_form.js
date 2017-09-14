@@ -90,10 +90,26 @@ class ExchangeForm extends Component {
 
     return (
       <div className="exchange-form">
-        <Carousel className="exchange-form__carousel exchange-form__carousel--from" selectedItem={this.state.exchangeCurrencyFrom} onChange={this.updateCurrencyFrom} showThumbs={false} showStatus={false} showArrows={false}>
+        <Carousel
+          className="exchange-form__carousel exchange-form__carousel--from"
+          selectedItem={this.state.exchangeCurrencyFrom}
+          onChange={this.updateCurrencyFrom}
+          showThumbs={false}
+          showStatus={false}
+          showArrows={false}
+          emulateTouch={true}
+        >
           {this.props.wallet.map(this.renderWalletFrom)}
         </Carousel>
-        <Carousel className="exchange-form__carousel exchange-form__carousel--to" selectedItem={this.state.exchangeCurrencyTo} onChange={this.updateCurrencyTo} showThumbs={false} showStatus={false} showArrows={false}>
+        <Carousel
+          className="exchange-form__carousel exchange-form__carousel--to"
+          selectedItem={this.state.exchangeCurrencyTo}
+          onChange={this.updateCurrencyTo}
+          showThumbs={false}
+          showStatus={false}
+          showArrows={false}
+          emulateTouch={true}
+        >
           {this.props.wallet.map(this.renderWalletTo)}
         </Carousel>
       </div>
