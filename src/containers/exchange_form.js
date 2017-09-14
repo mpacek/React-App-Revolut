@@ -13,38 +13,66 @@ class ExchangeForm extends Component {
     super(props);
 
     this.state = {
-      currencyExchangeFrom: 0,
-      currencyExchangeTo: 0
+      exchangeCurrencyFrom: 1,
+      exchangeCurrencyTo: 0,
+      exchangeRate: null,
+      exchangeAmount: ""
     };
 
-    this.setExchangeCurrencyFrom = this.setExchangeCurrencyFrom.bind(this);
-    this.setExchangeCurrencyTo = this.setExchangeCurrencyTo.bind(this);
+    this.updateCurrencyFrom = this.updateCurrencyFrom.bind(this);
+    this.updateCurrencyTo = this.updateCurrencyTo.bind(this);
+    this.renderWalletFrom = this.renderWalletFrom.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
   }
 
-  renderWallet(currency) {
+  onInputChange(event) {
+    this.setState({ exchangeAmount: event.target.value });
+  }
+
+  renderWalletFrom(currency) {
     const symbol = currency.symbol;
     const code = currency.code;
     const amount = currency.amount;
 
     return (
-      <div key={_.uniqueId()}>
-        <p>{code}{amount}{symbol}</p>
-      </div>
+      <article className="exchange-form__item" key={_.uniqueId()}>
+        <h2 className="exchange-form__code">{code}</h2>
+        <p className="exchange-form__amount">You have {symbol}{amount}</p>
+        <input
+          className="exchange-form__input"
+          value={this.state.exchangeAmount}
+          onChange={this.onInputChange}
+        />
+      </article>
     )
   }
 
-  setExchangeCurrencyFrom(index, element) {
-    if (index !== this.state.currencyExchangeFrom) {
+  renderWalletTo(currency) {
+    const symbol = currency.symbol;
+    const code = currency.code;
+    const amount = currency.amount;
+
+    return (
+      <article className="exchange-form__item" key={_.uniqueId()}>
+        <h2 className="exchange-form__item__code">{code}</h2>
+        <p className="exchange-form__item__amount">You have {symbol}{amount}</p>
+      </article>
+    )
+  }
+
+  updateCurrencyFrom(index, element) {
+    if (index !== this.state.exchangeCurrencyFrom) {
       this.setState({
-        currencyExchangeFrom : index
+        exchangeCurrencyFrom: index,
+        exchangeAmount: ""
       });
     }
   }
 
-  setExchangeCurrencyTo(index, element) {
-    if (index !== this.state.currencyExchangeTo) {
+  updateCurrencyTo(index, element) {
+    if (index !== this.state.exchangeCurrencyTo) {
       this.setState({
-        currencyExchangeTo : index
+        exchangeCurrencyTo: index
       });
     }
   }
@@ -58,13 +86,15 @@ class ExchangeForm extends Component {
       return <div>Loading data...</div>;
     }
 
+    console.log(this.state);
+
     return (
-      <div>
-        <Carousel selectedItem={this.state.currencyExchangeFrom} onChange={this.setExchangeCurrencyFrom} showThumbs={false} showStatus={false} showArrows={false}>
-          {this.props.wallet.map(this.renderWallet)}
+      <div className="exchange-form">
+        <Carousel className="exchange-form__carousel exchange-form__carousel--from" selectedItem={this.state.exchangeCurrencyFrom} onChange={this.updateCurrencyFrom} showThumbs={false} showStatus={false} showArrows={false}>
+          {this.props.wallet.map(this.renderWalletFrom)}
         </Carousel>
-        <Carousel selectedItem={this.state.currencyExchangeTo} onChange={this.setExchangeCurrencyTo} showThumbs={false} showStatus={false} showArrows={false}>
-          {this.props.wallet.map(this.renderWallet)}
+        <Carousel className="exchange-form__carousel exchange-form__carousel--to" selectedItem={this.state.exchangeCurrencyTo} onChange={this.updateCurrencyTo} showThumbs={false} showStatus={false} showArrows={false}>
+          {this.props.wallet.map(this.renderWalletTo)}
         </Carousel>
       </div>
     )
