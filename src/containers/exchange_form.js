@@ -4,10 +4,19 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchWallet } from '../actions/index';
 import { Carousel } from 'react-responsive-carousel';
-import './exchange_form.css';
+// Styles
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import './exchange_form.css';
 
 class ExchangeForm extends Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      currentSlide: 0
+    };
+  }
+
   componentDidMount() {
     this.props.fetchWallet();
   }
@@ -24,7 +33,6 @@ class ExchangeForm extends Component {
     )
   }
 
-
   render() {
     if(this.props.wallet.length < 1) {
       return <div>Loading data...</div>;
@@ -32,7 +40,7 @@ class ExchangeForm extends Component {
 
     return (
       <div>
-        <Carousel showThumbs={false} showStatus={false} showArrows={false}>
+        <Carousel onChange={(index, element) => {console.log(index + element) }} showThumbs={false} showStatus={false} showArrows={false}>
           {this.props.wallet.map(this.renderWallet)}
         </Carousel>
       </div>
