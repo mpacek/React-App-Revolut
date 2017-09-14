@@ -1,16 +1,19 @@
 [
   {
-    "currency_name": "GBP",
+    "id": "0",
+    "code": "GBP",
     "symbol": "£",
     "amount": "100"
   },
   {
-    "currency_name": "USD",
+    "id": "1",
+    "code": "USD",
     "symbol": "$",
     "amount": "50"
   },
   {
-    "currency_name": "EUR",
+    "id": "2",
+    "code": "EUR",
     "symbol": "€",
     "amount": "200"
   }

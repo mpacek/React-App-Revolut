@@ -13,24 +13,44 @@ class ExchangeForm extends Component {
     super(props);
 
     this.state = {
-      currentSlide: 0
+      currencyExchangeFrom: 0,
+      currencyExchangeTo: 0
     };
-  }
 
-  componentDidMount() {
-    this.props.fetchWallet();
+    this.setExchangeCurrencyFrom = this.setExchangeCurrencyFrom.bind(this);
+    this.setExchangeCurrencyTo = this.setExchangeCurrencyTo.bind(this);
   }
 
   renderWallet(currency) {
     const symbol = currency.symbol;
-    const name = currency.currency_name;
+    const code = currency.code;
     const amount = currency.amount;
 
     return (
       <div key={_.uniqueId()}>
-        <p>{name}{amount}{symbol}</p>
+        <p>{code}{amount}{symbol}</p>
       </div>
     )
+  }
+
+  setExchangeCurrencyFrom(index, element) {
+    if (index !== this.state.currencyExchangeFrom) {
+      this.setState({
+        currencyExchangeFrom : index
+      });
+    }
+  }
+
+  setExchangeCurrencyTo(index, element) {
+    if (index !== this.state.currencyExchangeTo) {
+      this.setState({
+        currencyExchangeTo : index
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.props.fetchWallet();
   }
 
   render() {
@@ -40,7 +60,10 @@ class ExchangeForm extends Component {
 
     return (
       <div>
-        <Carousel selectedItem={this.state.currentSlide} onChange={(index, element) => {console.log(index + element) }} showThumbs={false} showStatus={false} showArrows={false}>
+        <Carousel selectedItem={this.state.currencyExchangeFrom} onChange={this.setExchangeCurrencyFrom} showThumbs={false} showStatus={false} showArrows={false}>
+          {this.props.wallet.map(this.renderWallet)}
+        </Carousel>
+        <Carousel selectedItem={this.state.currencyExchangeTo} onChange={this.setExchangeCurrencyTo} showThumbs={false} showStatus={false} showArrows={false}>
           {this.props.wallet.map(this.renderWallet)}
         </Carousel>
       </div>
