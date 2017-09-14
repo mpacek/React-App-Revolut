@@ -1,25 +1,15 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import  { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchWallet } from '../actions/index';
+import { Carousel } from 'react-responsive-carousel';
 import './exchange_form.css';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 class ExchangeForm extends Component {
   componentDidMount() {
     this.props.fetchWallet();
-  }
-
-  render() {
-    if(!this.props.wallet) {
-      return <div>Loading data...</div>;
-    }
-
-    return (
-      <div>
-        {this.props.wallet.map(this.renderWallet)}
-      </div>
-    )
   }
 
   renderWallet(currency) {
@@ -29,7 +19,22 @@ class ExchangeForm extends Component {
 
     return (
       <div key={_.uniqueId()}>
-        {name}{amount}{symbol}
+        <p>{name}{amount}{symbol}</p>
+      </div>
+    )
+  }
+
+
+  render() {
+    if(this.props.wallet.length < 1) {
+      return <div>Loading data...</div>;
+    }
+
+    return (
+      <div>
+        <Carousel showThumbs={false} showStatus={false} showArrows={false}>
+          {this.props.wallet.map(this.renderWallet)}
+        </Carousel>
       </div>
     )
   }
