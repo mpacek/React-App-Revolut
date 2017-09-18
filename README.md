@@ -1,7 +1,6 @@
 # Revolut app
 
-Web Development Home Task
-Dev url: http://pacek.lh.pl/revolut/
+Web Development Home Task. Dev url: http://pacek.lh.pl/revolut/
 
 ## Setup
 
