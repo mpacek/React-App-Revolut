@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   updateAmount
 } from '../actions/index';
+// styles
+import './exchange_form.css';
 
 class ExchangeForm extends Component {
   constructor (props) {
@@ -22,12 +25,18 @@ class ExchangeForm extends Component {
     this.props.updateAmount(amount);
   }
 
+  componentDidUpdate() {
+    ReactDOM.findDOMNode(this.refs.input).focus()
+  }
+
   render() {
 
     return (
-      <div>
+      <div className="exchange-form">
         <form className="exchange-form__form">
           <input
+            ref="input"
+            type="number"
             className="exchange-form__input"
             value={this.state.amount}
             onChange={this.onInputChange}

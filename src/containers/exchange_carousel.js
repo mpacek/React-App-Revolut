@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
@@ -37,9 +38,9 @@ class ExchangeCarousel extends Component {
     const amount = currency.amount;
 
     return (
-      <article className="exchange-form__item" key={code}>
-        <h2 className="exchange-form__code">{code}</h2>
-        <p className="exchange-form__amount">You have {symbol}{amount}</p>
+      <article className="exchange-carousel__item" key={code}>
+        <h2 className="exchange-carousel__code">{code}</h2>
+        <p className="exchange-carousel__wallet">You have {symbol}{amount}</p>
       </article>
     )
   }
@@ -54,22 +55,22 @@ class ExchangeCarousel extends Component {
 
     if (this.props.exchange.rate !== 1) {
       exchangeRate =
-        <span className="exchange-form__rate">
+        <span className="exchange-carousel__rate">
           {symbol}1 = {this.getCurrencyObject(code).symbol}{_.round(this.props.exchange.rate, 2)}
         </span>;
     }
 
-    if (this.props.exchange.amount !== 0) {
+    if (!!this.props.exchange.amount !== false && this.props.exchange.rate !== 1) {
       exchangeAmount =
-        <div className="exchange-form__amount">
+        <div className="exchange-carousel__amount">
           {this.props.exchange.amount > 0 && '+'}{_.round(this.props.exchange.amount * this.props.exchange.rate, 2)}
         </div>;
     }
 
     return (
-      <article className="exchange-form__item" key={code}>
-        <h2 className="exchange-form__code">{code}</h2>
-        <p className="exchange-form__amount">You have {symbol}{amount}</p>
+      <article className="exchange-carousel__item" key={code}>
+        <h2 className="exchange-carousel__code">{code}</h2>
+        <p className="exchange-carousel__wallet">You have {symbol}{amount}</p>
         {exchangeRate}
         {exchangeAmount}
       </article>
@@ -122,7 +123,7 @@ class ExchangeCarousel extends Component {
     return (
       <div className="exchange-carousel">
         <Carousel
-          className="exchange-form__carousel exchange-form__carousel--from"
+          className="exchange-carousel__carousel exchange-carousel__carousel--from"
           onChange={this.onChangeFrom}
           selectedItem={this.state.selectedItemFrom}
           showThumbs={false}
@@ -133,7 +134,7 @@ class ExchangeCarousel extends Component {
           {this.props.wallet.map(this.renderWalletFrom)}
         </Carousel>
         <Carousel
-          className="exchange-form__carousel exchange-form__carousel--to"
+          className="exchange-carousel__carousel exchange-carousel__carousel--to"
           onChange={this.onChangeTo}
           selectedItem={this.state.selectedItemTo}
           showThumbs={false}

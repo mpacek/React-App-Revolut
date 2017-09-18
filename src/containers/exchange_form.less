@@ -1,0 +1,30 @@
+.exchange-form {
+  font-size: 40px;
+  position: absolute;
+  z-index: 10;
+  top: 26px;
+  right: 29px;
+
+  &__input {
+    color: #fff;
+    width: 150px;
+    background: none;
+    border: none;
+    text-align: right;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  // remove default arrows from input
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}

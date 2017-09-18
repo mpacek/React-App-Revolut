@@ -1,8 +1,79 @@
-.carousel {
+.exchange-carousel {
 
-  .slide {
-    padding: 5px;
-    min-height: 150px;
-    background: #eee;
+  &__code {
+    font-size: 40px;
+  }
+
+  &__wallet,
+  &__rate {
+    color: #7db6fc;
+    margin-top: 10px;
+    margin-left: 2px;
+    font-size: 12px;
+  }
+
+  &__wallet {
+    float: left;
+  }
+
+  &__rate {
+    margin-right: 2px;
+    float: right;
+  }
+
+  &__amount {
+    font-size: 40px;
+    position: absolute;
+    right: 30px;
+    top: 28px;
+    z-index: 2;
+  }
+
+  &__carousel {
+    position: relative;
+    z-index: 1;
+
+    .slide {
+      padding: 35px 30px 5px;
+      color: #fff;
+      min-height: 175px;
+      background: #eee;
+      text-align: left;
+    }
+
+    .control-dots {
+      margin-bottom: 20px;
+
+      .dot {
+        margin: 0 5px;
+        box-shadow: none;
+      }
+    }
+
+    &--from {
+      .slide {
+        background: radial-gradient(ellipse at center, #1f6eff 0%,#196bf4 100%);
+      }
+    }
+
+    &--to {
+      &::after {
+        content: "";
+        width: 0;
+        height: 0;
+        margin-left: -14px;
+        border-left: 14px solid transparent;
+        border-right: 14px solid transparent;
+        border-top: 14px solid #1b6cf8;
+        display: block;
+        position: absolute;
+        z-index: 11;
+        top: 0;
+        left: 50%;
+      }
+      .slide {
+        background: radial-gradient(ellipse at center, #265fd2 0%,#1051c5 100%);
+      }
+    }
   }
 }
