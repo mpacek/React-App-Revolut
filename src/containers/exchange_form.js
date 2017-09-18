@@ -26,7 +26,7 @@ class ExchangeForm extends Component {
   }
 
   componentDidUpdate() {
-    ReactDOM.findDOMNode(this.refs.input).focus()
+    ReactDOM.findDOMNode(this.refs.input).focus();
   }
 
   render() {
