@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {
+  updateAmount
+} from '../actions/index';
 
 class ExchangeForm extends Component {
   constructor (props) {
@@ -8,9 +12,18 @@ class ExchangeForm extends Component {
     this.state = {
       amount: ''
     };
+
+    this.onInputChange = this.onInputChange.bind(this);
+  }
+
+  onInputChange(event) {
+    let amount = event.target.value;
+    this.setState({ amount });
+    this.props.updateAmount(amount);
   }
 
   render() {
+
     return (
       <div>
         <form className="exchange-form__form">
@@ -20,14 +33,19 @@ class ExchangeForm extends Component {
             onChange={this.onInputChange}
           />
         </form>
-        {console.log(this.props.exchange)}
       </div>
     )
   }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    updateAmount
+  }, dispatch);
 }
 
 function mapStateToProps({ wallet, exchange }) {
   return { wallet, exchange };
 }
 
-export default connect(mapStateToProps)(ExchangeForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ExchangeForm);

@@ -2,7 +2,8 @@ import _ from 'lodash';
 import {
   UPDATE_EXCHANGE_CURRENCY_FROM,
   UPDATE_EXCHANGE_CURRENCY_TO,
-  UPDATE_EXCHANGE_RATE
+  UPDATE_EXCHANGE_RATE,
+  UPDATE_AMOUNT
 } from '../actions/index';
 
 // TODO: get default/active currencies from the api
@@ -29,6 +30,11 @@ export default function (state = initialState, action) {
     return {
       ...state,
       rate: _.values(action.payload.data.rates)[0]
+    };
+  case UPDATE_AMOUNT:
+    return {
+      ...state,
+      amount: action.payload
     };
   default:
     return state;

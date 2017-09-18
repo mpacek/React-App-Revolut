@@ -48,12 +48,20 @@ class ExchangeCarousel extends Component {
     const amount = currency.amount;
 
     let exchangeRate;
-    
-    if (this.props.exchange.rate !== 1) {
+    let exchangeAmount;
+
+    if (this.props.exchange.rate != 1) {
       exchangeRate =
         <span className="exchange-form__rate">
           {symbol}1 = {this.getCurrencyObject(code).symbol}{_.round(this.props.exchange.rate, 2)}
         </span>;
+    }
+
+    if (this.props.exchange.amount != 0) {
+      exchangeAmount =
+        <div className="exchange-form__amount">
+          {this.props.exchange.amount > 0 && '+'}{_.round(this.props.exchange.amount * this.props.exchange.rate, 2)}
+        </div>;
     }
 
     return (
@@ -61,13 +69,13 @@ class ExchangeCarousel extends Component {
         <h2 className="exchange-form__code">{code}</h2>
         <p className="exchange-form__amount">You have {symbol}{amount}</p>
         {exchangeRate}
+        {exchangeAmount}
       </article>
     )
   }
 
   getCurrencyObject(code) {
     var index = _.findIndex(this.props.wallet, {"code" : this.props.exchange.exchangeCurrencyFrom});
-    console.log(index);
     return _.get(this.props.wallet, index);
   }
 

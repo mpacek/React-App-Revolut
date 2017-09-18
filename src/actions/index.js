@@ -49,3 +49,12 @@ export function updateExchangeCurrencyTo(currency) {
     payload: currency
   }
 }
+
+export const UPDATE_AMOUNT = 'UPDATE_AMOUNT';
+
+export function updateAmount(amount) {
+  return {
+    type: UPDATE_AMOUNT,
+    payload: amount
+  }
+}
