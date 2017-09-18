@@ -102,8 +102,7 @@ class ExchangeCarousel extends Component {
     }
     clearInterval(this.interval);
     executeUpdate();
-    // TODO: change interval timeout to 10000
-    this.interval = setInterval(executeUpdate, 100000);
+    this.interval = setInterval(executeUpdate, 10000);
   }
 
   componentDidMount() {
