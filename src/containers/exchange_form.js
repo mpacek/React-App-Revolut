@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
@@ -21,8 +22,10 @@ class ExchangeForm extends Component {
 
   onInputChange(event) {
     let amount = event.target.value;
-    this.setState({ amount });
-    this.props.updateAmount(amount);
+    if (_.inRange(amount, -10000, 10000)) {
+      this.setState({ amount });
+      this.props.updateAmount(amount);
+    }
   }
 
   componentDidUpdate() {
