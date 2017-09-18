@@ -1,15 +1,15 @@
 [
   {
     "id": "0",
-    "code": "GBP",
-    "symbol": "£",
-    "amount": "100"
-  },
-  {
-    "id": "1",
     "code": "USD",
     "symbol": "$",
     "amount": "50"
+  },
+  {
+    "id": "1",
+    "code": "GBP",
+    "symbol": "£",
+    "amount": "100"
   },
   {
     "id": "2",

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -22,12 +23,13 @@ class ExchangeCarousel extends Component {
       selectedItemTo: 0
     };
 
-    this.renderWallet = this.renderWallet.bind(this);
+    this.renderWalletFrom = this.renderWalletFrom.bind(this);
+    this.renderWalletTo = this.renderWalletTo.bind(this);
     this.onChangeFrom = this.onChangeFrom.bind(this);
     this.onChangeTo = this.onChangeTo.bind(this);
   }
 
-  renderWallet(currency) {
+  renderWalletFrom(currency) {
     const symbol = currency.symbol;
     const code = currency.code;
     const amount = currency.amount;
@@ -38,6 +40,28 @@ class ExchangeCarousel extends Component {
         <p className="exchange-form__amount">You have {symbol}{amount}</p>
       </article>
     )
+  }
+
+  renderWalletTo(currency) {
+    const symbol = currency.symbol;
+    const code = currency.code;
+    const amount = currency.amount;
+
+    return (
+      <article className="exchange-form__item" key={code}>
+        <h2 className="exchange-form__code">{code}</h2>
+        <p className="exchange-form__amount">You have {symbol}{amount}</p>
+        <span className="exchange-form__rate">
+          {symbol}1 = {this.getCurrencyObject(code).symbol}{_.round(this.props.exchange.rate, 2)}
+        </span>
+      </article>
+    )
+  }
+
+  getCurrencyObject(code) {
+    var index = _.findIndex(this.props.wallet, {"code" : this.props.exchange.exchangeCurrencyFrom});
+    console.log(index);
+    return _.get(this.props.wallet, index);
   }
 
   onChangeFrom(index, element) {
@@ -55,13 +79,14 @@ class ExchangeCarousel extends Component {
   }
 
   updateExchangeRate(exchange_from, exchange_to) {
-    clearInterval(this.interval);
     let executeUpdate = () => {
       console.log('Exchange rate has been updated')
       this.props.updateExchangeRate(exchange_from, exchange_to);
     }
+    clearInterval(this.interval);
     executeUpdate();
-    this.interval = setInterval(executeUpdate, 10000);
+    // TODO: change interval timeout to 10000
+    this.interval = setInterval(executeUpdate, 100000);
   }
 
   componentDidMount() {
@@ -88,7 +113,7 @@ class ExchangeCarousel extends Component {
           showArrows={false}
           emulateTouch={true}
         >
-          {this.props.wallet.map(this.renderWallet)}
+          {this.props.wallet.map(this.renderWalletFrom)}
         </Carousel>
         <Carousel
           className="exchange-form__carousel exchange-form__carousel--to"
@@ -99,7 +124,7 @@ class ExchangeCarousel extends Component {
           showArrows={false}
           emulateTouch={true}
         >
-          {this.props.wallet.map(this.renderWallet)}
+          {this.props.wallet.map(this.renderWalletTo)}
         </Carousel>
       </div>
     )

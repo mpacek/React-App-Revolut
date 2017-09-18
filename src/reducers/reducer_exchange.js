@@ -7,8 +7,8 @@ import {
 
 // TODO: get default/active currencies from the api
 const initialState = {
-  exchangeCurrencyFrom: 'GBP',
-  exchangeCurrencyTo: 'GBP',
+  exchangeCurrencyFrom: 'USD',
+  exchangeCurrencyTo: 'USD',
   rate: 1,
   amount: 0
 };
@@ -27,7 +27,7 @@ export default function (state = initialState, action) {
     };
   case UPDATE_EXCHANGE_RATE:
     return {
-      ...state, 
+      ...state,
       rate: _.values(action.payload.data.rates)[0]
     };
   default:
