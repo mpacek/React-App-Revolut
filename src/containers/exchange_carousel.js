@@ -47,13 +47,20 @@ class ExchangeCarousel extends Component {
     const code = currency.code;
     const amount = currency.amount;
 
+    let exchangeRate;
+    
+    if (this.props.exchange.rate !== 1) {
+      exchangeRate =
+        <span className="exchange-form__rate">
+          {symbol}1 = {this.getCurrencyObject(code).symbol}{_.round(this.props.exchange.rate, 2)}
+        </span>;
+    }
+
     return (
       <article className="exchange-form__item" key={code}>
         <h2 className="exchange-form__code">{code}</h2>
         <p className="exchange-form__amount">You have {symbol}{amount}</p>
-        <span className="exchange-form__rate">
-          {symbol}1 = {this.getCurrencyObject(code).symbol}{_.round(this.props.exchange.rate, 2)}
-        </span>
+        {exchangeRate}
       </article>
     )
   }
