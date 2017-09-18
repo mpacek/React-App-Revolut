@@ -31,6 +31,7 @@ class ExchangeForm extends Component {
             className="exchange-form__input"
             value={this.state.amount}
             onChange={this.onInputChange}
+            autoFocus
           />
         </form>
       </div>

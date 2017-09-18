@@ -52,14 +52,14 @@ class ExchangeCarousel extends Component {
     let exchangeRate;
     let exchangeAmount;
 
-    if (this.props.exchange.rate != 1) {
+    if (this.props.exchange.rate !== 1) {
       exchangeRate =
         <span className="exchange-form__rate">
           {symbol}1 = {this.getCurrencyObject(code).symbol}{_.round(this.props.exchange.rate, 2)}
         </span>;
     }
 
-    if (this.props.exchange.amount != 0) {
+    if (this.props.exchange.amount !== 0) {
       exchangeAmount =
         <div className="exchange-form__amount">
           {this.props.exchange.amount > 0 && '+'}{_.round(this.props.exchange.amount * this.props.exchange.rate, 2)}
@@ -77,19 +77,19 @@ class ExchangeCarousel extends Component {
   }
 
   getCurrencyObject(code) {
-    var index = _.findIndex(this.props.wallet, {"code" : this.props.exchange.exchangeCurrencyFrom});
+    const index = _.findIndex(this.props.wallet, {"code" : this.props.exchange.exchangeCurrencyFrom});
     return _.get(this.props.wallet, index);
   }
 
   onChangeFrom(index, element) {
-    let currency_code = element.key;
+    const currency_code = element.key;
     this.props.updateExchangeCurrencyFrom(currency_code);
     this.updateExchangeRate(currency_code, this.props.exchange.exchangeCurrencyTo);
     this.setState({selectedItemFrom : index});
   }
 
   onChangeTo(index, element) {
-    let currency_code = element.key;
+    const currency_code = element.key;
     this.props.updateExchangeCurrencyTo(currency_code);
     this.updateExchangeRate(this.props.exchange.exchangeCurrencyFrom, currency_code);
     this.setState({selectedItemTo : index});
