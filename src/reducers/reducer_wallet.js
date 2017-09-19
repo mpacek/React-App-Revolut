@@ -1,9 +1,10 @@
-import { FETCH_WALLET } from '../actions/index';
+import _ from 'lodash';
+import { FETCH_WALLET } from '../actions';
 
-export default function (state = [], action) {
+export default function (state = {}, action) {
   switch (action.type) {
   case FETCH_WALLET:
-    return action.payload.data;
+    return _.mapKeys(action.payload.data, 'code');
   default:
     return state;
   }

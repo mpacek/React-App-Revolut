@@ -34,7 +34,7 @@ export function updateExchangeRate(exchange_from, exchange_to) {
 
 export const UPDATE_EXCHANGE_CURRENCY_FROM = 'UPDATE_EXCHANGE_CURRENCY_FROM';
 
-export function updateExchangeCurrencyFrom(currency) {
+export function updatecurrencyFrom(currency) {
   return {
     type: UPDATE_EXCHANGE_CURRENCY_FROM,
     payload: currency
@@ -43,7 +43,7 @@ export function updateExchangeCurrencyFrom(currency) {
 
 export const UPDATE_EXCHANGE_CURRENCY_TO = 'UPDATE_EXCHANGE_CURRENCY_TO';
 
-export function updateExchangeCurrencyTo(currency) {
+export function updatecurrencyTo(currency) {
   return {
     type: UPDATE_EXCHANGE_CURRENCY_TO,
     payload: currency

@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   fetchWallet,
-  updateExchangeCurrencyFrom,
-  updateExchangeCurrencyTo,
+  updatecurrencyFrom,
+  updatecurrencyTo,
   updateExchangeRate
 } from '../actions/index';
 import { Carousel } from 'react-responsive-carousel';
@@ -20,9 +20,9 @@ class ExchangeCarousel extends Component {
     super(props);
 
     this.state = {
-      exchangeAmount: "",
+      exchangeAmount: null,
       selectedItemFrom: 0,
-      selectedItemTo: 0
+      selectedItemTo: 1
     };
 
     this.renderWalletFrom = this.renderWalletFrom.bind(this);
@@ -55,11 +55,13 @@ class ExchangeCarousel extends Component {
     if (this.props.exchange.rate !== 1) {
       exchangeRate =
         <span className="exchange-carousel__rate">
-          {symbol}1 = {this.getCurrencyObject(code).symbol}{_.round(this.props.exchange.rate, 2)}
+          {symbol}
+          1 = {this.props.wallet[this.props.exchange.currencyFrom].symbol}
+          {_.round(this.props.exchange.rate, 2)}
         </span>;
     }
 
-    if (!!this.props.exchange.amount !== false && this.props.exchange.rate !== 1) {
+    if (!!this.props.exchange.amount !== false) {
       exchangeAmount =
         <div className="exchange-carousel__amount">
           {this.props.exchange.amount > 0 && '+'}{_.round(this.props.exchange.amount * this.props.exchange.rate, 2)}
@@ -76,29 +78,24 @@ class ExchangeCarousel extends Component {
     )
   }
 
-  getCurrencyObject(code) {
-    const index = _.findIndex(this.props.wallet, {"code" : this.props.exchange.exchangeCurrencyFrom});
-    return _.get(this.props.wallet, index);
-  }
-
   onChangeFrom(index, element) {
     const currency_code = element.key;
-    this.props.updateExchangeCurrencyFrom(currency_code);
-    this.updateExchangeRate(currency_code, this.props.exchange.exchangeCurrencyTo);
+    this.props.updatecurrencyFrom(currency_code);
+    this.startUpdateExchangeRate();
     this.setState({selectedItemFrom : index});
   }
 
   onChangeTo(index, element) {
     const currency_code = element.key;
-    this.props.updateExchangeCurrencyTo(currency_code);
-    this.updateExchangeRate(this.props.exchange.exchangeCurrencyFrom, currency_code);
+    this.props.updatecurrencyTo(currency_code);
+    this.startUpdateExchangeRate();
     this.setState({selectedItemTo : index});
   }
 
-  updateExchangeRate(exchange_from, exchange_to) {
+  startUpdateExchangeRate() {
     let executeUpdate = () => {
       console.log('Exchange rate has been updated')
-      this.props.updateExchangeRate(exchange_from, exchange_to);
+      this.props.updateExchangeRate(this.props.exchange.currencyFrom, this.props.exchange.currencyTo);
     }
     clearInterval(this.interval);
     executeUpdate();
@@ -107,6 +104,7 @@ class ExchangeCarousel extends Component {
 
   componentDidMount() {
     this.props.fetchWallet();
+    this.startUpdateExchangeRate();
   }
 
   componentWillUnmount() {
@@ -114,7 +112,7 @@ class ExchangeCarousel extends Component {
   }
 
   render() {
-    if(this.props.wallet.length < 1) {
+    if(_.size(this.props.wallet) < 1) {
       return <div>Loading data...</div>;
     }
 
@@ -129,7 +127,7 @@ class ExchangeCarousel extends Component {
           showArrows={false}
           emulateTouch={true}
         >
-          {this.props.wallet.map(this.renderWalletFrom)}
+          {_.map(this.props.wallet, this.renderWalletFrom)}
         </Carousel>
         <Carousel
           className="exchange-carousel__carousel exchange-carousel__carousel--to"
@@ -140,7 +138,7 @@ class ExchangeCarousel extends Component {
           showArrows={false}
           emulateTouch={true}
         >
-          {this.props.wallet.map(this.renderWalletTo)}
+          {_.map(this.props.wallet, this.renderWalletTo)}
         </Carousel>
       </div>
     )
@@ -150,8 +148,8 @@ class ExchangeCarousel extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchWallet,
-    updateExchangeCurrencyFrom,
-    updateExchangeCurrencyTo,
+    updatecurrencyFrom,
+    updatecurrencyTo,
     updateExchangeRate
   }, dispatch);
 }
