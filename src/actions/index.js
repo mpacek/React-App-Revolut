@@ -5,6 +5,7 @@ export const UPDATE_EXCHANGE_RATE = 'UPDATE_EXCHANGE_RATE';
 export const UPDATE_EXCHANGE_CURRENCY_FROM = 'UPDATE_EXCHANGE_CURRENCY_FROM';
 export const UPDATE_EXCHANGE_CURRENCY_TO = 'UPDATE_EXCHANGE_CURRENCY_TO';
 export const UPDATE_AMOUNT_FROM = 'UPDATE_AMOUNT_FROM';
+export const UPDATE_AMOUNT_TO = 'UPDATE_AMOUNT_TO';
 
 const WALLET_API_URL = "api/wallet.json";
 const EXCHANGE_API_URL = "https://openexchangerates.org/api/latest.json";
@@ -46,6 +47,13 @@ export function updatecurrencyTo(currency) {
 export function updateAmountFrom(amount) {
   return {
     type: UPDATE_AMOUNT_FROM,
+    payload: amount
+  }
+}
+
+export function updateAmountTo(amount) {
+  return {
+    type: UPDATE_AMOUNT_TO,
     payload: amount
   }
 }

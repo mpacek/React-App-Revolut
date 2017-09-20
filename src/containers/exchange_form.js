@@ -34,12 +34,12 @@ class ExchangeForm extends Component {
 
   render() {
     let exchangeAmount;
-    const { exchange: { amount, rate } } = this.props;
+    const { exchange: { amountFrom, rate } } = this.props;
 
-    if (!!amount !== false) {
+    if (!!amountFrom !== false) {
       exchangeAmount =
         <div className="exchange-form__input exchange-form__input--to">
-          {amount < 0 && '+'}{-1 * _.round(amount * rate, 2)}
+          {amountFrom < 0 && '+'}{_.round(-1 * amountFrom * rate, 2)}
         </div>;
     }
 
