@@ -20,7 +20,6 @@ class ExchangeCarousel extends Component {
     super(props);
 
     this.state = {
-      exchangeAmount: null,
       selectedItemFrom: 0,
       selectedItemTo: 1
     };
@@ -50,7 +49,6 @@ class ExchangeCarousel extends Component {
     const amount = currency.amount;
 
     let exchangeRate;
-    let exchangeAmount;
 
     if (this.props.exchange.rate !== 1) {
       exchangeRate =
@@ -61,19 +59,11 @@ class ExchangeCarousel extends Component {
         </span>;
     }
 
-    if (!!this.props.exchange.amount !== false) {
-      exchangeAmount =
-        <div className="exchange-carousel__amount">
-          {this.props.exchange.amount > 0 && '+'}{_.round(this.props.exchange.amount * this.props.exchange.rate, 2)}
-        </div>;
-    }
-
     return (
       <article className="exchange-carousel__item" key={code}>
         <h2 className="exchange-carousel__code">{code}</h2>
         <p className="exchange-carousel__wallet">You have {symbol}{amount}</p>
         {exchangeRate}
-        {exchangeAmount}
       </article>
     )
   }
@@ -99,7 +89,8 @@ class ExchangeCarousel extends Component {
     }
     clearInterval(this.interval);
     executeUpdate();
-    this.interval = setInterval(executeUpdate, 10000);
+    // TODO: change to 10000
+    this.interval = setInterval(executeUpdate, 100000);
   }
 
   componentDidMount() {
