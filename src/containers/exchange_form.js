@@ -13,17 +13,38 @@ class ExchangeForm extends Component {
   constructor (props) {
     super(props);
 
+    this.state = {
+      message: ''
+    }
+
     this.onInputChangeFrom = this.onInputChangeFrom.bind(this);
   }
 
   onInputChangeFrom(event) {
-    const amountFrom = event.target.value;
+    const formAmountFrom = event.target.value;
     const { wallet, exchange } = this.props;
-    const rangeMin = -1 * wallet[exchange.currencyFrom].amount;
-    const rangeMax = wallet[exchange.currencyTo].amount / exchange.rate;
+    const walletAmoutFrom = wallet[exchange.currencyFrom].amount;
+    const walletAmoutFromSymbol = wallet[exchange.currencyFrom].symbol;
+    const rangeMin = _.round(walletAmoutFrom);
+    const rangeMax = _.round(walletAmoutFrom / exchange.rate, 2);
 
-    if (_.inRange(amountFrom, rangeMin, rangeMax)) {
-      this.props.updateAmountFrom(amountFrom);
+    if (_.inRange(formAmountFrom, -1 * rangeMin, rangeMax)) {
+      this.props.updateAmountFrom(formAmountFrom);
+      this.updateMessage();
+    } else {
+      const message = `
+        You can sell maximum ${rangeMin}${walletAmoutFromSymbol},
+        and buy maximum ${rangeMax}${walletAmoutFromSymbol}
+      `;
+      this.updateMessage(message);
+    }
+  }
+
+  updateMessage(message) {
+    if(message) {
+      this.setState({ message });
+    } else {
+      this.setState({ message: '' });
     }
   }
 
@@ -55,6 +76,9 @@ class ExchangeForm extends Component {
           />
           {exchangeAmount}
         </form>
+        <div className="exchange-form__message">
+          {this.state.message}
+        </div>
       </div>
     )
   }
