@@ -9,10 +9,13 @@ export default function (state = {}, action) {
   case FETCH_WALLET:
     return _.mapKeys(action.payload.data, 'code');
   case UPDATE_WALLET:
-    const newState = state;
-    newState[action.payload.code].amount = _.toString(action.payload.amount);
-
-    return newState;
+      return {
+        ...state,
+        [action.payload.code]: {
+          ...state[action.payload.code],
+          amount: _.toString(action.payload.amount)
+        }
+      }
   default:
     return state;
   }

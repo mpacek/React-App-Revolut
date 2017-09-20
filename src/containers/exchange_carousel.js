@@ -32,12 +32,11 @@ class ExchangeCarousel extends Component {
 
   renderWalletFrom(currency) {
     const { symbol, code, amount } = currency;
-    const { wallet } = this.props;
 
     return (
       <article className="exchange-carousel__item" key={code}>
         <h2 className="exchange-carousel__code">{code}</h2>
-        <p className="exchange-carousel__wallet">You have {symbol}{wallet[code].amount}</p>
+        <p className="exchange-carousel__wallet">You have {symbol}{amount}</p>
       </article>
     )
   }
@@ -60,7 +59,7 @@ class ExchangeCarousel extends Component {
     return (
       <article className="exchange-carousel__item" key={code}>
         <h2 className="exchange-carousel__code">{code}</h2>
-        <p className="exchange-carousel__wallet">You have {symbol}{amount}</p>
+        <p className="exchange-carousel__wallet">You have {symbol}{_.round(amount, 2)}</p>
         {exchangeRate}
       </article>
     )
@@ -87,8 +86,7 @@ class ExchangeCarousel extends Component {
     }
     clearInterval(this.interval);
     executeUpdate();
-    // TODO: change to 10000
-    this.interval = setInterval(executeUpdate, 100000);
+    this.interval = setInterval(executeUpdate, 10000);
   }
 
   componentDidMount() {
