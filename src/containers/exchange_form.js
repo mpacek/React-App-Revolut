@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  updateAmount
+  updateAmountFrom
 } from '../actions/index';
 // styles
 import './exchange_form.css';
@@ -14,17 +14,17 @@ class ExchangeForm extends Component {
     super(props);
 
     this.state = {
-      amount: ''
+      amountFrom: ''
     };
 
-    this.onInputChange = this.onInputChange.bind(this);
+    this.onInputChangeFrom = this.onInputChangeFrom.bind(this);
   }
 
-  onInputChange(event) {
-    const amount = event.target.value;
-    if (_.inRange(amount, -10000, 10000)) {
-      this.setState({ amount });
-      this.props.updateAmount(amount);
+  onInputChangeFrom(event) {
+    const amountFrom = event.target.value;
+    if (_.inRange(amountFrom, -10000, 10000)) {
+      this.setState({ amountFrom });
+      this.props.updateAmountFrom(amountFrom);
     }
   }
 
@@ -50,8 +50,8 @@ class ExchangeForm extends Component {
             ref="input"
             type="number"
             className="exchange-form__input exchange-form__input--from"
-            value={this.state.amount}
-            onChange={this.onInputChange}
+            value={this.state.amountFrom}
+            onChange={this.onInputChangeFrom}
             autoFocus
           />
           {exchangeAmount}
@@ -63,7 +63,7 @@ class ExchangeForm extends Component {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    updateAmount
+    updateAmountFrom
   }, dispatch);
 }
 

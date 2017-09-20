@@ -3,7 +3,7 @@ import {
   UPDATE_EXCHANGE_CURRENCY_FROM,
   UPDATE_EXCHANGE_CURRENCY_TO,
   UPDATE_EXCHANGE_RATE,
-  UPDATE_AMOUNT
+  UPDATE_AMOUNT_FROM
 } from '../actions';
 
 // TODO: get default/active currencies from the api
@@ -31,7 +31,7 @@ export default function (state = initialState, action) {
       ...state,
       rate: _.values(action.payload.data.rates)[0]
     };
-  case UPDATE_AMOUNT:
+  case UPDATE_AMOUNT_FROM:
     return {
       ...state,
       amount: action.payload
