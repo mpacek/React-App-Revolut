@@ -13,17 +13,16 @@ class ExchangeForm extends Component {
   constructor (props) {
     super(props);
 
-    this.state = {
-      amountFrom: ''
-    };
-
     this.onInputChangeFrom = this.onInputChangeFrom.bind(this);
   }
 
   onInputChangeFrom(event) {
     const amountFrom = event.target.value;
-    if (_.inRange(amountFrom, -10000, 10000)) {
-      this.setState({ amountFrom });
+    const { wallet, exchange } = this.props;
+    const rangeMin = -1 * wallet[exchange.currencyFrom].amount;
+    const rangeMax = wallet[exchange.currencyTo].amount / exchange.rate;
+
+    if (_.inRange(amountFrom, rangeMin, rangeMax)) {
       this.props.updateAmountFrom(amountFrom);
     }
   }
@@ -50,7 +49,7 @@ class ExchangeForm extends Component {
             ref="input"
             type="number"
             className="exchange-form__input exchange-form__input--from"
-            value={this.state.amountFrom}
+            value={this.props.exchange.amountFrom}
             onChange={this.onInputChangeFrom}
             autoFocus
           />

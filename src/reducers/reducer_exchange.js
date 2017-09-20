@@ -12,9 +12,9 @@ const initialState = {
   currencyFrom: 'USD',
   currencyTo: 'GBP',
   rate: 0,
-  amountFrom: 0,
-  amountTo: 0
-};
+  amountFrom: '',
+  amountTo: ''
+}
 
 export default function (state = initialState, action) {
   switch (action.type) {
