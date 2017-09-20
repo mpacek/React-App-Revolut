@@ -9,7 +9,7 @@ export const UPDATE_AMOUNT_FROM = 'UPDATE_AMOUNT_FROM';
 
 const WALLET_API_URL = "api/wallet.json";
 const EXCHANGE_API_URL = "https://openexchangerates.org/api/latest.json";
-const EXCHANGE_API_ID = "8b38a6b9bc064adcb16d2420457323c7";
+const EXCHANGE_API_ID = "97d389a903394074a0b49237a037cf3c";
 
 export function fetchWallet() {
   const url = WALLET_API_URL;
