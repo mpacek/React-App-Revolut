@@ -21,7 +21,7 @@ class ExchangeForm extends Component {
   }
 
   onInputChange(event) {
-    let amount = event.target.value;
+    const amount = event.target.value;
     if (_.inRange(amount, -10000, 10000)) {
       this.setState({ amount });
       this.props.updateAmount(amount);
@@ -34,11 +34,12 @@ class ExchangeForm extends Component {
 
   render() {
     let exchangeAmount;
+    const { exchange: { amount, rate } } = this.props;
 
-    if (!!this.props.exchange.amount !== false) {
+    if (!!amount !== false) {
       exchangeAmount =
         <div className="exchange-form__input exchange-form__input--to">
-          {this.props.exchange.amount < 0 && '+'}{-1 * _.round(this.props.exchange.amount * this.props.exchange.rate, 2)}
+          {amount < 0 && '+'}{-1 * _.round(amount * rate, 2)}
         </div>;
     }
 

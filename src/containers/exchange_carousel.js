@@ -31,9 +31,7 @@ class ExchangeCarousel extends Component {
   }
 
   renderWalletFrom(currency) {
-    const symbol = currency.symbol;
-    const code = currency.code;
-    const amount = currency.amount;
+    const { symbol, code, amount } = currency;
 
     return (
       <article className="exchange-carousel__item" key={code}>
@@ -44,9 +42,8 @@ class ExchangeCarousel extends Component {
   }
 
   renderWalletTo(currency) {
-    const symbol = currency.symbol;
-    const code = currency.code;
-    const amount = currency.amount;
+    const { symbol, code, amount } = currency;
+    const { wallet, exchange } = this.props;
 
     let exchangeRate;
 
@@ -54,8 +51,8 @@ class ExchangeCarousel extends Component {
       exchangeRate =
         <span className="exchange-carousel__rate">
           {symbol}
-          1 = {this.props.wallet[this.props.exchange.currencyFrom].symbol}
-          {_.round(this.props.exchange.rate, 2)}
+          1 = {wallet[exchange.currencyFrom].symbol}
+          {_.round(exchange.rate, 2)}
         </span>;
     }
 
