@@ -36,7 +36,7 @@ class ExchangeCarousel extends Component {
     return (
       <article className="exchange-carousel__item" key={code}>
         <h2 className="exchange-carousel__code">{code}</h2>
-        <p className="exchange-carousel__wallet">You have {symbol}{amount}</p>
+        <p className="exchange-carousel__wallet">You have {symbol}{_.round(amount, 2)}</p>
       </article>
     )
   }
