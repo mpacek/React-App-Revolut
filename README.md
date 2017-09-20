@@ -1,6 +1,6 @@
 # Revolut app
 
-Web Development Home Task. Dev url: http://pacek.lh.pl/revolut/ It uses a free exchange API which aloows to use only USD as a base, so exchange rate is correct only when USD is set at the top.
+Web Development Home Task. Dev url: http://pacek.lh.pl/revolut/ It uses a free exchange API which allows to use only USD as a base, so exchange rate is correct only when USD is set at the top.
 
 ## Setup
 
