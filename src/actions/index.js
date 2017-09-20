@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const FETCH_WALLET = 'FETCH_WALLET';
+export const UPDATE_WALLET = 'UPDATE_WALLET';
 export const UPDATE_EXCHANGE_RATE = 'UPDATE_EXCHANGE_RATE';
 export const UPDATE_EXCHANGE_CURRENCY_FROM = 'UPDATE_EXCHANGE_CURRENCY_FROM';
 export const UPDATE_EXCHANGE_CURRENCY_TO = 'UPDATE_EXCHANGE_CURRENCY_TO';
@@ -16,6 +17,16 @@ export function fetchWallet() {
   return {
     type: FETCH_WALLET,
     payload: request
+  }
+}
+
+export function updateWallet(code, amount) {
+  return {
+    type: UPDATE_WALLET,
+    payload: {
+      code: code,
+      amount: amount
+    }
   }
 }
 

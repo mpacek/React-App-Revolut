@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  updateAmountFrom
+  updateAmountFrom,
+  updateWallet
 } from '../actions/index';
 // styles
 import './exchange_form.css';
@@ -17,6 +18,7 @@ class ExchangeForm extends Component {
       message: ''
     }
 
+    this.onSubmit = this.onSubmit.bind(this);
     this.onInputChangeFrom = this.onInputChangeFrom.bind(this);
   }
 
@@ -28,6 +30,7 @@ class ExchangeForm extends Component {
     const rangeMin = _.round(walletAmoutFrom);
     const rangeMax = _.round(walletAmoutFrom / exchange.rate, 2);
 
+    // form validation
     if (_.inRange(formAmountFrom, -1 * rangeMin, rangeMax)) {
       this.props.updateAmountFrom(formAmountFrom);
       this.updateMessage();
@@ -48,6 +51,15 @@ class ExchangeForm extends Component {
     }
   }
 
+  onSubmit(event) {
+    const { wallet, exchange } = this.props;
+    const newWalletFrom = _.sum([_.toNumber(wallet[exchange.currencyFrom].amount), _.toNumber(exchange.amountFrom)]);
+
+    event.preventDefault();
+    console.log(wallet[exchange.currencyFrom].code + ',' + newWalletFrom);
+    this.props.updateWallet(wallet[exchange.currencyFrom].code, newWalletFrom)
+  }
+
   componentDidUpdate() {
     ReactDOM.findDOMNode(this.refs.input).focus();
   }
@@ -65,7 +77,7 @@ class ExchangeForm extends Component {
 
     return (
       <div className="exchange-form">
-        <form className="exchange-form__form">
+        <form onSubmit={this.onSubmit} className="exchange-form__form">
           <input
             ref="input"
             type="number"
@@ -86,7 +98,8 @@ class ExchangeForm extends Component {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    updateAmountFrom
+    updateAmountFrom,
+    updateWallet
   }, dispatch);
 }
 
