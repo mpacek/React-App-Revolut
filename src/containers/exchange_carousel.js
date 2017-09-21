@@ -43,15 +43,15 @@ class ExchangeCarousel extends Component {
 
   renderWalletTo(currency) {
     const { symbol, code, amount } = currency;
-    const { wallet, exchange } = this.props;
+    const { wallet, exchange, exchange: { currencyFrom } } = this.props;
 
     let exchangeRate;
 
-    if (this.props.exchange.rate !== 1) {
+    if (exchange.rate !== 1) {
       exchangeRate =
         <span className="exchange-carousel__rate">
           {symbol}
-          1 = {wallet[exchange.currencyFrom].symbol}
+          1 = {wallet[currencyFrom].symbol}
           {_.round(exchange.rate, 2)}
         </span>;
     }
@@ -81,12 +81,12 @@ class ExchangeCarousel extends Component {
 
   startUpdateExchangeRate() {
     let executeUpdate = () => {
-      console.log('Exchange rate has been updated')
+      console.log('Exchange rate has been updated');
       this.props.updateExchangeRate(this.props.exchange.currencyFrom, this.props.exchange.currencyTo);
     }
     clearInterval(this.interval);
     executeUpdate();
-    this.interval = setInterval(executeUpdate, 10000);
+    this.interval = setInterval(executeUpdate, 1000000);
   }
 
   componentDidMount() {
@@ -103,6 +103,8 @@ class ExchangeCarousel extends Component {
       return <div>Loading data...</div>;
     }
 
+    const { wallet } = this.props;
+
     return (
       <div className="exchange-carousel">
         <Carousel
@@ -114,7 +116,7 @@ class ExchangeCarousel extends Component {
           showArrows={false}
           emulateTouch={true}
         >
-          {_.map(this.props.wallet, this.renderWalletFrom)}
+          {_.map(wallet, this.renderWalletFrom)}
         </Carousel>
         <Carousel
           className="exchange-carousel__carousel exchange-carousel__carousel--to"
@@ -125,7 +127,7 @@ class ExchangeCarousel extends Component {
           showArrows={false}
           emulateTouch={true}
         >
-          {_.map(this.props.wallet, this.renderWalletTo)}
+          {_.map(wallet, this.renderWalletTo)}
         </Carousel>
       </div>
     )

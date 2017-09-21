@@ -23,19 +23,17 @@ class ExchangeForm extends Component {
   }
 
   validateForm(amount) {
-    const { wallet, exchange } = this.props;
-    const walletAmountFrom = wallet[exchange.currencyFrom].amount;
-    const walletAmountFromSymbol = wallet[exchange.currencyFrom].symbol;
-    const rangeMin = _.round(walletAmountFrom);
-    const rangeMax = _.round(wallet[exchange.currencyTo].amount / exchange.rate, 2);
+    const { wallet, exchange, exchange: { currencyFrom, currencyTo } } = this.props;
+    const rangeMin = _.round(wallet[currencyFrom].amount, 2);
+    const rangeMax = _.round(wallet[currencyTo].amount / exchange.rate, 2);
 
     if(_.inRange(amount, -1 * rangeMin, rangeMax)) {
       this.updateMessage();
       return true;
     } else {
       const message = `
-        You can sell maximum ${rangeMin}${walletAmountFromSymbol},
-        and buy maximum ${rangeMax}${walletAmountFromSymbol}
+        You can sell maximum ${rangeMin}${wallet[currencyFrom].symbol},
+        and buy maximum ${rangeMax}${wallet[currencyFrom].symbol}
       `;
       this.updateMessage(message);
       return false;
@@ -60,17 +58,16 @@ class ExchangeForm extends Component {
   }
 
   onSubmit(event) {
-    event.preventDefault();
-
-    const { wallet } = this.props;
-    const { exchange: { currencyFrom, currencyTo, amountFrom, rate } } = this.props;
-    const newWalletFrom = _.sum([_.toNumber(wallet[currencyFrom].amount), _.toNumber(amountFrom)]);
-    const newWalletTo = _.sum([_.toNumber(wallet[currencyTo].amount), _.toNumber(-1 * amountFrom * rate)]);
+    const { wallet, exchange: { currencyFrom, currencyTo, amountFrom, rate } } = this.props;
+    const newAmountFrom = _.sum([_.toNumber(wallet[currencyFrom].amount), _.toNumber(amountFrom)]);
+    const newAmountTo = _.sum([_.toNumber(wallet[currencyTo].amount), _.toNumber(-1 * amountFrom * rate)]);
     const isValid = this.validateForm(_.toNumber(amountFrom));
 
+    event.preventDefault();
+
     if(isValid && rate !== 1) {
-      this.props.updateWallet(wallet[currencyFrom].code, newWalletFrom);
-      this.props.updateWallet(wallet[currencyTo].code, newWalletTo);
+      this.props.updateWallet(wallet[currencyFrom].code, newAmountFrom);
+      this.props.updateWallet(wallet[currencyTo].code, newAmountTo);
     }
   }
 
@@ -97,7 +94,7 @@ class ExchangeForm extends Component {
             type="number"
             step="0.01"
             className="exchange-form__input exchange-form__input--from"
-            value={this.props.exchange.amountFrom}
+            value={amountFrom}
             onChange={this.onInputChangeFrom}
             autoFocus
           />
