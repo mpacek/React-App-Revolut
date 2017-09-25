@@ -19,6 +19,7 @@ class ExchangeCarousel extends Component {
   constructor (props) {
     super(props);
 
+    // TODO: get default/selected currencies from the api
     this.state = {
       selectedItemFrom: 0,
       selectedItemTo: 1
